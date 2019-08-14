@@ -101,9 +101,54 @@ public class CustomLinearLayoutManager extends RecyclerView.LayoutManager{
 
 可以使RecyclerView像ViewPager一样的效果，一次只能滑一页，而且居中显示。
 
-```python
 
-```
+##### ItemTouchHelper
+对单个item进行拖拽处理
 ```python
+ItemTouchHelper itemTouchHelper = new ItemTouchHelper(mCallback);
+itemTouchHelper.attachToRecyclerView(mRecyclerView);
+```
+ItemTouchHelper.SimpleCallback
+
+重写onMove、onSwiped、onChildDraw方法。
+```python
+            
+            /**
+             *        拖拽到新位置时候的回调方法
+             * @param viewHolder  拖动的ViewHolder
+             * @param target   目标位置的ViewHolder
+             */
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+  
+                return false;
+            }
+
+            /**
+             *        将items滑出屏幕时的回调方法
+             * @param viewHolder 滑动的ViewHolder
+             * @param direction  滑动的方向
+             */
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+              int position = viewHolder.getAdapterPosition();
+                list.remove(position);
+
+                adapter.notifyItemRemoved(position);
+            }
+
+            //拖拽和滑动时的回调，通过actionState判断是拖拽还是滑动
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                //设置删除时items透明
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    final float alpha = 1 - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
+                    viewHolder.itemView.setAlpha(alpha);
+                }
+            }
+        };
+
 
 ```

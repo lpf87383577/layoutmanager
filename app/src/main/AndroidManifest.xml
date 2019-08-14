@@ -9,6 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TantanActivity">
+        </activity>
+        <activity android:name=".RenRenActivity">
+        </activity>
+        <activity android:name=".Gallery2LayoutActivity">
+        </activity>
+        <activity android:name=".GalleryLayoutActivity">
+        </activity>
+        <activity android:name=".CustomLayoutManagerActivity">
+        </activity>
+        <activity android:name=".CustomLinearLayoutActivity">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
